@@ -1,118 +1,131 @@
-📈 Triplytics: ML-Powered Tourism Trend & Price Prediction Platform
+# 📈 Triplytics: ML-Powered Tourism Trend & Price Prediction Platform
 
- Role: Wroked in a Team of two | Status: Active
+**Role:** Worked in a Team of Two  
+**Status:** Active
 
-🚀 Overview
+---
 
-Triplytics is a comprehensive predictive analytics system designed to forecast travel costs for both flights and trains with high precision. Unlike standard fare calculators, Triplytics uses machine learning to predict future prices based on temporal booking trends, route popularity, and dynamic pricing factors.
+## 🚀 Overview
 
-This project processes over 300,000+ records of flight and rail data to train robust regression models, offering users a unified interface to estimate their travel expenses days or weeks in advance.
+Triplytics is a comprehensive predictive analytics system designed to **forecast travel costs for both flights and trains with high precision**. Unlike standard fare calculators, Triplytics leverages machine learning to provide real-time and future price predictions based on extensive historical data, robust preprocessing, and sophisticated feature engineering.
 
-🎯 Key Features
+This project processes **over 300,000+ records** of flight and rail data to train advanced regression models, offering users a **unified interface to estimate travel expenses days or weeks in advance**.
 
-Dual-Mode Prediction Engine: A unified hub for predicting both Flight and Train ticket prices.
+---
 
-Cascading Logic System: Implemented smart, interdependent dropdowns for train stations. The destination list dynamically filters based on the selected source station, ensuring 100% valid route queries.
+## 🎯 Key Features
 
-Hub-and-Spoke Route Modeling: The train model is trained on a curated dataset of 125+ major railway hubs, covering thousands of high-traffic routes across the network.
+- **Dual-Mode Prediction Engine**  
+  One platform to predict both **Flight** and **Train** ticket prices.
 
-Temporal Feature Engineering: extracting deep insights from booking timestamps (e.g., booking day, hours until departure) to capture dynamic pricing surges.
+- **Cascading Logic System**  
+  Intuitive dropdowns for train stations: the destination list automatically updates based on the chosen source, ensuring only valid routes.
 
-Interactive Dashboard: A responsive, user-friendly web app built with Streamlit, featuring real-time inference and clear visualizations.
+- **Hub-and-Spoke Route Modeling**  
+  The train pricing model covers **125+ major railway hubs** and thousands of high-traffic interconnections.
 
-🛠️ Technical Architecture
+- **Temporal Feature Engineering**  
+  Smart extraction from booking timestamps (e.g., advance days, booking day of week, booking hour) to capture price surges and trends.
 
-1. Machine Learning Pipeline
+- **Interactive Dashboard**  
+  Built with **Streamlit**, featuring real-time inference and clear price visualizations.
 
-Algorithms: Utilized Random Forest Regressor (n_estimators=100) for its ability to handle non-linear relationships and interaction effects between features (e.g., Airline × Departure Time).
+---
 
-Data Scale:
+## 🛠️ Technical Architecture
 
-Flight Data: ~300,000 records (clean Kaggle dataset).
+### 1. Machine Learning Pipeline
 
-Train Data: ~180,000 records (custom filtered dataset focusing on major hubs).
+- **Algorithm:**  
+  Random Forest Regressor (`n_estimators=100`) for handling complex, non-linear price dynamics.
 
-Preprocessing:
+- **Data Used:**  
+  - **Flight Data:** ~300,000 records (cleaned Kaggle dataset)  
+  - **Train Data:** ~180,000 records (custom-filtered for major hubs)
 
-One-Hot Encoding: For categorical variables like Airline, Source, Destination, and Class.
+- **Preprocessing Flow:**  
+  - **One-Hot Encoding:** Airline, Source, Destination, Class  
+  - **Standard Scaling:** Distance, Duration  
+  - **Pipelines:** All steps managed via `sklearn.pipeline` to prevent data leakage and ensure replicable inference.
 
-Standard Scaling: Applied to numerical features like Distance and Duration to ensure model stability.
+---
 
-Pipelines: Used sklearn.pipeline to bundle preprocessing and modeling, preventing data leakage and simplifying inference.
+### 2. Data Engineering
 
-2. Data Engineering
+- **Data Cleaning:**  
+  Normalized inconsistent station names (e.g., `"KANPUR CENTRAL JN."` ➔ `"Kanpur Central"`).
 
-Data Cleaning: Engineered a robust cleaning script to normalize inconsistent station names (e.g., "KANPUR CENTRAL JN." vs "Kanpur Central").
+- **Feature Extraction:**  
+  Derived features such as `days_left`, `journey_day_of_week`, `booking_hour` from raw timestamps.
 
-Feature Extraction: Derived critical features such as days_left, journey_day_of_week, and booking_hour from raw timestamps.
+- **Optimization:**  
+  Built a **Route Lookup Dictionary** (Hash Map) for instant retrieval of route details, drastically reducing prediction latency.
 
-Optimization: Implemented a Route Lookup Dictionary (Hash Map) for O(1) retrieval of route distances and durations, significantly reducing inference latency.
+---
 
-3. Frontend (Streamlit)
+### 3. Frontend (Streamlit)
 
-State Management: Used Streamlit's session state and caching (@st.cache_resource) to load heavy ML models only once, reducing app load time by 90% on subsequent runs.
+- **State Management:**  
+  Used Streamlit's session state and advanced caching (`@st.cache_resource`) to ensure fast loading (90% faster reloads).
 
-Dynamic UI: Designed a conditional rendering system that swaps input forms based on the user's mode selection (Flight vs. Train).
+- **Dynamic UI:**  
+  Conditional rendering enables seamless toggling between **Flight** and **Train** modes with intuitive forms.
 
-📊 Model Performance
+---
 
-Metric
+## 📊 Model Performance
 
-Flight Model
+| Metric     | Flight Model | Train Model       |
+| ---------- | ------------ | ---------------- |
+| **R² Score**  | 0.98         | 0.99             |
+| **MAE**       | Low error    | Precision within ~₹50 |
 
-Train Model
+High R² scores prove the models' strength in capturing fare variation.
 
-R² Score
+---
 
-0.98
+## 💻 Installation & Setup
 
-0.99
+**1. Clone the repository:**
+```sh
+git clone https://github.com/Rishwik-Mishra/Triplytics-ML-Powered-Tourism-Trend-Price-Prediction-Platform.git
+cd Triplytics-ML-Powered-Tourism-Trend-Price-Prediction-Platform
+```
 
-MAE
-
-Low error margin
-
-Precision within ~₹50
-
-The high R² scores demonstrate the models' strong ability to explain price variance based on the selected features.
-
-💻 Installation & Setup
-
-Clone the repository:
-
-git clone [https://github.com/Rishwik-Mishra/Triplytics-ML-Powered-Tourism-Trend-Price-Prediction-Platform.git](https://github.com/Rishwik-Mishra/Triplytics-ML-Powered-Tourism-Trend-Price-Prediction-Platform.git)
-cd Triplytics
-
-
-Install dependencies:
-
+**2. Install dependencies:**
+```sh
 pip install -r requirements.txt
+```
 
-
-Run the application:
-
+**3. Run the application:**
+```sh
 streamlit run app.py
+```
 
+---
 
-📂 Project Structure
+## 📂 Project Structure
 
+```
 Triplytics/
-├── app.py                       # Main Streamlit application entry point
-├── flight_model.pkl             # Trained Random Forest model for flights
-├── train_price_pipeline.pkl     # Trained ML pipeline for trains
-├── scaler.pkl                   # Feature scaler for normalization
-├── passenger_train_data_expanded.csv  # Processed train dataset (180k+ rows)
-├── list_of_stations.json        # Station code-to-name mapping
-├── Price_Prediction_Flight.ipynb # Jupyter notebook for flight model training
-└── train_price_predictor.ipynb   # Jupyter notebook for train model training
+├── app.py                           # Main Streamlit app
+├── flight_model.pkl                 # Trained random forest model (flights)
+├── train_price_pipeline.pkl         # Trained ML pipeline (trains)
+├── scaler.pkl                       # Feature scaler for normalization
+├── passenger_train_data_expanded.csv# Processed train dataset (180k+ rows)
+├── list_of_stations.json            # Station code-to-name mapping
+├── Price_Prediction_Flight.ipynb    # Flight model training notebook
+└── train_price_predictor.ipynb      # Train model training notebook
+```
 
+---
 
-👨‍💻 Author
+## 👨‍💻 Author
 
-Rishwik Mishra
+**Rishwik Mishra**  
+*Full Stack Data Science Developer*  
+**Focus:** Machine Learning, Data Analytics, Web Development
 
-Role: Full Stack Data Science Developer
+---
 
-Focus: Machine Learning, Data Analytics, Web Development
-
-*Star ⭐ this repository
+⭐️ *Star this repository if you found it useful!*
