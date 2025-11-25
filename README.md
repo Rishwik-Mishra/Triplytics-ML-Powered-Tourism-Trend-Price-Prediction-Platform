@@ -1,6 +1,6 @@
 # 📈 Triplytics: ML-Powered Tourism Trend & Price Prediction Platform
 
-**Role:** Worked in a Team of Two  
+**Role:** Main Developer in a team of two  
 **Status:** Active
 
 ---
